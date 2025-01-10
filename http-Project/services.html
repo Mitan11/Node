@@ -3,13 +3,109 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>Services</title>
   </head>
-  <body>
-    <h1>Services</h1>
-    <a href="/">Home</a>
-    <a href="/about">About</a>
-    <a href="/contact">Contact</a>
-    <a href="/services">Services</a>
+  <body class="bg-gray-100">
+    <header class="bg-blue-600 text-white">
+      <div
+        class="container mx-auto flex justify-between items-center py-4 px-6"
+      >
+        <h1 class="text-2xl font-bold">Logo</h1>
+        <nav class="space-x-4">
+          <a href="/" class="hover:text-gray-200">Home</a>
+          <a href="/about" class="hover:text-gray-200">About</a>
+          <a href="/contact" class="hover:text-gray-200">Contact</a>
+          <a href="/services" class="hover:text-gray-200">Services</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container mx-auto py-12 px-6">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">
+        What We Offer
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+          <div class="text-blue-600 text-4xl mb-4">
+            <i class="fas fa-laptop-code"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">
+            Web Development
+          </h3>
+          <p class="text-gray-600">
+            Creating responsive and modern websites tailored to your needs.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+          <div class="text-green-600 text-4xl mb-4">
+            <i class="fas fa-mobile-alt"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">
+            Mobile App Development
+          </h3>
+          <p class="text-gray-600">
+            Designing user-friendly mobile applications for various platforms.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+          <div class="text-yellow-600 text-4xl mb-4">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">
+            Digital Marketing
+          </h3>
+          <p class="text-gray-600">
+            Helping you reach a wider audience through effective marketing
+            strategies.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+          <div class="text-purple-600 text-4xl mb-4">
+            <i class="fas fa-cogs"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">
+            Software Solutions
+          </h3>
+          <p class="text-gray-600">
+            Providing custom software solutions to streamline your business
+            processes.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+          <div class="text-red-600 text-4xl mb-4">
+            <i class="fas fa-cloud"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">
+            Cloud Computing
+          </h3>
+          <p class="text-gray-600">
+            Leveraging cloud technologies for scalable and secure applications.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+          <div class="text-indigo-600 text-4xl mb-4">
+            <i class="fas fa-database"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">
+            Data Analysis
+          </h3>
+          <p class="text-gray-600">
+            Providing insights through data analysis and visualization tools.
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="bg-blue-600 text-white py-4">
+      <div class="container mx-auto text-center">
+        <p>&copy; 2025 Our Services. All rights reserved.</p>
+      </div>
+    </footer>
   </body>
 </html>

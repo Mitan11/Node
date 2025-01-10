@@ -3,13 +3,77 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>Home</title>
   </head>
-  <body>
-    <h1>Home Page</h1>
-    <a href="/">Home</a>
-    <a href="/about">About</a>
-    <a href="/contact">Contact</a>
-    <a href="/services">Services</a>
+  <body class="bg-gray-100">
+    <header class="bg-blue-600 text-white">
+      <div
+        class="container mx-auto flex justify-between items-center py-4 px-6"
+      >
+        <h1 class="text-2xl font-bold">Logo</h1>
+        <nav class="space-x-4">
+          <a href="/" class="hover:text-gray-200">Home</a>
+          <a href="/about" class="hover:text-gray-200">About</a>
+          <a href="/services" class="hover:text-gray-200">Services</a>
+          <a href="/contact" class="hover:text-gray-200">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="bg-white">
+      <div class="container mx-auto text-center py-12 px-6">
+        <h2 class="text-4xl font-bold text-gray-800 mb-4">
+          Welcome to Our Website
+        </h2>
+        <p class="text-gray-600 mb-6">
+          Discover our amazing services and offerings. Your satisfaction is our
+          priority.
+        </p>
+        <a
+          href="/services"
+          class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
+          >Explore Services</a
+        >
+      </div>
+    </section>
+
+    <section class="bg-gray-100 py-12">
+      <div class="container mx-auto">
+        <h3 class="text-2xl font-bold text-gray-800 text-center mb-8">
+          Our Features
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h4 class="text-xl font-semibold mb-2">Feature One</h4>
+            <p class="text-gray-600">
+              Learn more about what makes us unique in delivering excellent
+              services.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h4 class="text-xl font-semibold mb-2">Feature Two</h4>
+            <p class="text-gray-600">
+              Discover how we ensure quality and value for all our customers.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h4 class="text-xl font-semibold mb-2">Feature Three</h4>
+            <p class="text-gray-600">
+              Find out more about our innovative solutions tailored to your
+              needs.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="bg-blue-600 text-white py-4">
+      <div class="container mx-auto text-center">
+        <p>&copy; 2025 My Website. All rights reserved.</p>
+      </div>
+    </footer>
   </body>
 </html>

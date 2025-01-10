@@ -3,13 +3,47 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>About</title>
   </head>
-  <body>
-    <h1>About</h1>
-    <a href="/">Home</a>
-    <a href="/about">About</a>
-    <a href="/contact">Contact</a>
-    <a href="/services">Services</a>
+  <body class="bg-gray-100">
+    <header class="bg-blue-600 text-white">
+      <div
+        class="container mx-auto flex justify-between items-center py-4 px-6"
+      >
+        <h1 class="text-2xl font-bold">Logo</h1>
+        <nav class="space-x-4">
+          <a href="/" class="hover:text-gray-200">Home</a>
+          <a href="/about" class="hover:text-gray-200">About</a>
+          <a href="/contact" class="hover:text-gray-200">Contact</a>
+          <a href="/services" class="hover:text-gray-200">Services</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container mx-auto py-12 px-6">
+      <h2 class="text-3xl font-bold text-gray-800 mb-4">About Our Website</h2>
+      <p class="text-gray-600 leading-relaxed mb-6">
+        Welcome to our website! We are dedicated to providing high-quality
+        services and creating value for our users. Our mission is to deliver
+        excellence in every aspect of what we do, ensuring satisfaction and
+        trust.
+      </p>
+      <p class="text-gray-600 leading-relaxed mb-6">
+        Our team consists of experienced professionals passionate about their
+        work, always striving to meet the needs of our customers. We believe in
+        innovation, integrity, and building lasting relationships.
+      </p>
+      <p class="text-gray-600 leading-relaxed">
+        Thank you for visiting. We look forward to working with you and
+        exceeding your expectations!
+      </p>
+    </main>
+
+    <footer class="bg-blue-600 text-white py-4">
+      <div class="container mx-auto text-center">
+        <p>&copy; 2025 About Us Page. All rights reserved.</p>
+      </div>
+    </footer>
   </body>
 </html>
