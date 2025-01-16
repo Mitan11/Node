@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Update Task</title>
+  </head>
+  <body class="bg-gray-100 min-h-screen flex justify-center items-center p-6">
+    <div class="container mx-auto max-w-lg bg-white p-6 rounded-lg shadow-lg">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">
+        Update Task
+      </h2>
+      <form method="POST" action="/edit-data">
+        <input
+          type="hidden"
+          name="date"
+          id=""
+          value="<%= new Date().toLocaleDateString() %>"
+        />
+        <input type="hidden" name="completed" value='' id="" />
+        <input type="hidden" name="id" value='<%= id %>' id="" />
+        <div class="mb-4">
+          <label for="taskTitle" class="block text-sm font-medium text-gray-700"
+            >Task Title</label
+          >
+          <input
+            type="text"
+            id="taskTitle"
+            class="mt-1 p-3 w-full border border-gray-300 rounded-md"
+            placeholder="Enter task title"
+            name="title"
+            value="<%= todo.title %>"
+            required
+          />
+        </div>
+        <div class="mb-4">
+          <label
+            for="taskPriority"
+            class="block text-sm font-medium text-gray-700"
+            >Priority</label
+          >
+          <select
+            id="taskPriority"
+            class="mt-1 p-3 w-full border border-gray-300 rounded-md"
+            required
+            name="priority"
+          >
+          <option value="Low" <%= todo.priority == 'Low' ? 'selected' : '' %> >Low</option>
+          <option value="Medium" <%= todo.priority == 'Medium' ? 'selected' : '' %>>Medium</option>
+          <option value="High" <%= todo.priority == 'High' ? 'selected' : '' %>>High</option>          
+          </select>
+        </div>
+        <button
+          type="submit"
+          class="w-full py-3 bg-yellow-600 text-white rounded-md hover:bg-yellow-700 transition-all duration-300"
+        >
+          Edit Task
+        </button>
+      </form>
+    </div>
+  </body>
+</html>
