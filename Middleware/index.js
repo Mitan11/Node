@@ -11,9 +11,7 @@ app.get('/', (req, res) => {
     res.render("index");
 });
 
-app.post('/', isAuthenticated, (req, res) => {
-    res.redirect('/home')
-});
+app.use(isAuthenticated)
 
 app.get('/home', (req, res) => {
     res.render('Home');
