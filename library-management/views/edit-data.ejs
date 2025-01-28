@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Update Book Data</title>
+  </head>
+  <body class="bg-gray-100 py-10">
+    <!-- Add Book Form -->
+    <div class="min-h-screen flex items-center justify-center">
+      <form
+        method="POST"
+        action="/update/<%= book.id %>"
+        class="bg-white max-w-lg w-full p-8 rounded-xl shadow-xl"
+      >
+        <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">
+          Add New Book
+        </h2>
+
+        <!-- Title -->
+        <div class="mb-6">
+          <label for="title" class="block text-gray-700 font-medium mb-2"
+            >Book Title</label
+          >
+          <input
+            type="text"
+            id="title"
+            name="title"
+            placeholder="Enter book title"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            value="<%= book.title %>"
+            required
+          />
+        </div>
+
+        <!-- Author -->
+        <div class="mb-6">
+          <label for="author" class="block text-gray-700 font-medium mb-2"
+            >Author</label
+          >
+          <input
+            type="text"
+            id="author"
+            name="author"
+            placeholder="Enter author name"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            value="<%= book.author %>"
+            required
+          />
+        </div>
+
+        <!-- Genre -->
+        <div class="mb-6">
+          <label for="genre" class="block text-gray-700 font-medium mb-2"
+            >Genre</label
+          >
+          <select
+  id="genre"
+  name="genre"
+  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+  required
+>
+  <option value="">Select a genre</option>
+  <option value="Fiction" <%= book.genre === 'Fiction' ? 'selected' : '' %>>Fiction</option>
+  <option value="Non-Fiction" <%= book.genre === 'Non-Fiction' ? 'selected' : '' %>>Non-Fiction</option>
+  <option value="Biography" <%= book.genre === 'Biography' ? 'selected' : '' %>>Biography</option>
+  <option value="Science" <%= book.genre === 'Science' ? 'selected' : '' %>>Science</option>
+  <option value="History" <%= book.genre === 'History' ? 'selected' : '' %>>History</option>
+</select>
+
+        </div>
+
+        <!-- Status -->
+        <div class="mb-6">
+          <span class="block text-gray-700 font-medium mb-2">Status</span>
+          <div class="flex items-center gap-4">
+            <label class="inline-flex items-center">
+              <input
+                type="radio"
+                name="status"
+                value="Available"
+                class="text-blue-500 focus:ring-blue-500"
+                <%= book.status === 'Available' ? 'checked' : '' %>
+                required
+              />
+              <span class="ml-2 text-gray-700">Available</span>
+            </label>
+            <label class="inline-flex items-center">
+              <input
+                type="radio"
+                name="status"
+                value="Checked Out"
+                class="text-blue-500 focus:ring-blue-500"
+                <%= book.status === 'Checked Out' ? 'checked' : '' %>
+                required
+              />
+              <span class="ml-2 text-gray-700">Checked Out</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Condition -->
+        <div class="mb-6">
+          <span class="block text-gray-700 font-medium mb-2">Condition</span>
+          <div class="flex items-center gap-4">
+            <label class="inline-flex items-center">
+              <input
+                type="radio"
+                name="condition"
+                value="New"
+                class="text-green-500 focus:ring-green-500"
+                <%= book.condition === 'New' ? 'checked' : '' %>
+                required
+              />
+              <span class="ml-2 text-gray-700">New</span>
+            </label>
+            <label class="inline-flex items-center">
+              <input
+                type="radio"
+                name="condition"
+                value="Good"
+                class="text-yellow-500 focus:ring-yellow-500"
+                <%= book.condition === 'Good' ? 'checked' : '' %>
+                required
+              />
+              <span class="ml-2 text-gray-700">Good</span>
+            </label>
+            <label class="inline-flex items-center">
+              <input
+                type="radio"
+                name="condition"
+                value="Worn"
+                class="text-red-500 focus:ring-red-500"
+                <%= book.condition === 'Worn' ? 'checked' : '' %>
+                required
+              />
+              <span class="ml-2 text-gray-700">Worn</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-6">
+          <label for="description" class="block text-gray-700 font-medium mb-2"
+            >Description</label
+          >
+          <textarea
+            id="description"
+            name="description"
+            rows="4"
+            placeholder="Enter book description"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            required
+          ><%= book.description %></textarea>
+        </div>
+
+        <!-- Date Added -->
+        <div class="mb-6">
+          <label for="dateAdded" class="block text-gray-700 font-medium mb-2"
+            >Date Added</label
+          >
+          <input
+            type="date"
+            id="dateAdded"
+            name="dateAdded"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            value="<%= new Date(book.dateAdded).toISOString().split('T')[0] %>"
+            required
+          />
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          class="w-full bg-blue-500 text-white py-3 rounded-lg shadow-md hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+        >
+          Update Book
+        </button>
+      </form>
+    </div>
+  </body>
+</html>
