@@ -1,0 +1,43 @@
+<%- include("header") %>
+<div class="register-box">
+  <div class="card">
+    <div class="card-body register-card-body">
+      <p class="register-box-msg">Register a new membership</p>
+      <form action="/signup-user" method="post" enctype="multipart/form-data">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Full Name" name="userName" />
+          <div class="input-group-text"><span class="bi bi-person"></span></div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="email" class="form-control" placeholder="Email" name="email" />
+          <div class="input-group-text">
+            <span class="bi bi-envelope"></span>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="Password" name="password" />
+          <div class="input-group-text">
+            <span class="bi bi-lock-fill"></span>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="file" class="form-control" placeholder="Profile image" name="image" />
+          <div class="input-group-text">
+            <span class="bi bi-image"></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary">Sign In</button>
+            </div>
+          </div>
+        </div>
+      </form>
+      <p class="mb-0">
+        <a href="/" class="text-center"> I already have a membership </a>
+      </p>
+    </div>
+  </div>
+</div>
+<%- include("footer") %>
