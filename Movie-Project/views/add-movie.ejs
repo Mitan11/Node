@@ -1,0 +1,37 @@
+<%- include('header') %>
+<%- include('navbar') %>
+
+<div class="bg-gray-900 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
+        <h2 class="text-2xl font-semibold text-center text-gray-700 mb-6">Add a New Movie</h2>
+        <form class="flex flex-col gap-4" action="/add-movie" method="post" enctype="multipart/form-data">
+            <div>
+                <label for="title" class="block text-gray-600 font-medium mb-1">Title</label>
+                <input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" name="title" id="title" placeholder="Enter movie title" required />
+            </div>
+
+            <div>
+                <label for="description" class="block text-gray-600 font-medium mb-1">Description</label>
+                <input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" name="description" id="description" placeholder="Enter movie description" required />
+            </div>
+
+            <div>
+                <label for="language" class="block text-gray-600 font-medium mb-1">Language</label>
+                <input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" name="language" id="language" placeholder="Enter movie language" required />
+            </div>
+
+            <div>
+                <label for="rating" class="block text-gray-600 font-medium mb-1">Rating</label>
+                <input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" name="rating" id="rating" placeholder="Enter movie rating" required />
+            </div>
+
+            <div>
+                <label for="image" class="block text-gray-600 font-medium mb-1">Movie Poster</label>
+                <input class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 file:bg-blue-500 file:text-white file:py-2 file:px-4 file:border-none file:rounded-md" type="file" name="image" id="image" required />
+            </div>
+
+            <button class="w-full px-4 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition duration-200" type="submit">Add Movie</button>
+        </form>
+    </div>
+</div>
+<%- include('footer') %>

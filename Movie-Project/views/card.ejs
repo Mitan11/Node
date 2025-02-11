@@ -1,0 +1,35 @@
+<div class="bg-gray-900 flex justify-center items-center min-h-screen">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-6">
+      <% movies.forEach(movie => { %>
+      <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+        <img
+          src="/uploads/<%= movie.image %>"
+          alt="<%= movie.title %>"
+          class="w-full h-72 object-cover"
+        />
+        <div class="p-4">
+          <div class="flex justify-between items-center">
+            <span class="text-red-500 font-bold flex items-center">
+              ⭐ <%= movie.rating %>/10
+            </span>
+          </div>
+          <h2 class="text-lg font-bold mt-2"><%= movie.title %></h2>
+          <p class="text-gray-500 text-sm">UA16+</p>
+          <p class="text-gray-700 text-sm"><%= movie.language %></p>
+  
+          <div class="flex justify-center items-center mt-3">
+            <!-- Edit Button -->
+            <a href="/edit/<%= movie._id %>" class="bg-blue-500 text-white px-4 py-2 rounded-md mx-2">
+              Edit
+            </a>
+  
+            <!-- Delete Button (Fixed to use fetch API) -->
+            <a href="/delete/<%= movie._id %>" class="bg-red-500 text-white px-4 py-2 rounded-md mx-2">
+              Delete
+            </a>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
