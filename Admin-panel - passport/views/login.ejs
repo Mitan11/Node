@@ -1,0 +1,41 @@
+<%- include("header") %>
+
+<div class="login-page bg-body-secondary app-loaded">
+  <div class="login-box">
+    <div class="card">
+      <div class="card-body login-card-body">
+        <p class="login-box-msg">Sign in to start your session</p>
+        <form action="/login-user" method="post">
+          <div class="input-group mb-3">
+            <input type="email" class="form-control" placeholder="Email" name="email"/>
+            <div class="input-group-text">
+              <span class="bi bi-envelope"></span>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" placeholder="Password" name="password"/>
+            <div class="input-group-text">
+              <span class="bi bi-lock-fill"></span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">login</button>
+              </div>
+            </div>
+          </div>
+        </form>
+        <p class="mb-0 d-flex justify-content-between">
+          <a href="/signup" class="text-center">
+            Register new account
+          </a>
+          <a href="/forgot-password" class="text-center">
+            Forgot Password?
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include("footer") %>

@@ -1,0 +1,56 @@
+<%- include('header') %>
+<div class="app-wrapper">
+  <%- include('navAndSidebar') %>
+
+  <div class="content-wrapper my-2">
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">User Tables</h3>
+              </div>
+              <div class="card-body">
+                <table class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>User Name</th>
+                      <th>Email</th>
+                      <th>Password</th>
+                      <th>Image</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% users.forEach((item, index) => { %>
+                        <% if (item._id.toString() !== user._id.toString()) { %>
+                          <tr>
+                            <td><%= index + 1 %></td>
+                            <td><%= item.userName %></td>
+                            <td><%= item.email %></td>
+                            <td><%= item.password %></td>
+                            <td>
+                              <img src="/images/uploads/<%= item.image %>" alt="User Image" style="width:50px; height:auto;">
+                            </td>
+                            <td>
+                              <a href="/edit/<%= item._id %>" class="btn btn-sm btn-primary">Edit</a>
+                              <a href="/delete/<%= item._id %>" class="btn btn-sm btn-danger">Delete</a>
+                            </td>
+                          </tr>
+                        <% } %>
+                            
+                      <% }) %>
+                      
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+<%- include('footer') %>

@@ -1,0 +1,56 @@
+<%- include('header') %>
+<div class="app-wrapper">
+  <%- include('navAndSidebar') %>
+
+  <div class="content-wrapper my-2">
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Products Table</h3>
+              </div>
+              <div class="card-body">
+                <table class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Product Name</th>
+                      <th>Product Price</th>
+                      <th>Product Description</th>
+                      <th>Product Image</th>
+                      <th>Product Category</th>
+                      <th>Product Contact No</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Product 1</td>
+                        <td>100</td>
+                        <td>Product 1 Description</td>
+                        <td>Product 1 Category</td>
+                        <td>1234567890</td>
+                        <td>
+                            <img src="/images/uploads/default.png" alt="User Image" style="width:50px; height:auto;">
+                        </td>
+                        <td>
+                            <a href="#" class="btn btn-sm btn-primary">Edit</a>
+                            <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                      
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+</div>
+<%- include('footer') %>
