@@ -45,6 +45,20 @@ dashboardRouter.get("/delete/:id", passport.isAuthenticated, controllers.deleteU
 
 dashboardRouter.get('/add-product', passport.isAuthenticated, controllers.addProductController);
 
-dashboardRouter.get('/products-table', passport.isAuthenticated, controllers.productsTableController);
+dashboardRouter.post('/add-product', upload.single("productImage") ,passport.isAuthenticated, controllers.addProductPostController)
+
+dashboardRouter.get('/products-table' , passport.isAuthenticated, controllers.productsTableController);
+
+dashboardRouter.get('/add-category' , passport.isAuthenticated, controllers.addCategoryController);
+
+dashboardRouter.post('/add-category' , passport.isAuthenticated, controllers.addCategoryPostController);
+
+dashboardRouter.get('/add-subcategory', passport.isAuthenticated, controllers.addSubCategoryController);
+
+dashboardRouter.post('/add-subcategory', passport.isAuthenticated, controllers.addSubCategoryPostController);
+
+dashboardRouter.get('/add-subsubcategory', passport.isAuthenticated, controllers.addSubSubCategoryController);
+
+dashboardRouter.post('/add-subsubcategory', passport.isAuthenticated, controllers.addSubSubCategoryPostController);
 
 module.exports = dashboardRouter;

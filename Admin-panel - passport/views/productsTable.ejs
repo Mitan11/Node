@@ -19,29 +19,30 @@
                       <th>Product Name</th>
                       <th>Product Price</th>
                       <th>Product Description</th>
-                      <th>Product Image</th>
                       <th>Product Category</th>
                       <th>Product Contact No</th>
+                      <th>Product Image</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
+                    <% products.map((item , index)=>{ %>
                     <tr>
-                        <td>1</td>
-                        <td>Product 1</td>
-                        <td>100</td>
-                        <td>Product 1 Description</td>
-                        <td>Product 1 Category</td>
-                        <td>1234567890</td>
+                        <td><%=index+1 %></td>
+                        <td><%=item.productName %></td>
+                        <td><%=item.productPrice %></td>
+                        <td><%=item.productDescription %></td>
+                        <td><%=item.productCategory.categoryName %></td>
+                        <td><%=item.productContact %></td>
                         <td>
-                            <img src="/images/uploads/default.png" alt="User Image" style="width:50px; height:auto;">
+                            <img src="/images/uploads/<%=item.productImage %>" alt="User Image" style="width:50px; height:auto;">
                         </td>
                         <td>
-                            <a href="#" class="btn btn-sm btn-primary">Edit</a>
-                            <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                            <a href="/editProduct/<%=item._id %>" class="btn btn-sm btn-primary">Edit</a>
+                            <a href="/deleteProduct/<%=item._id %>" class="btn btn-sm btn-danger">Delete</a>
                         </td>
                     </tr>
-                      
+                      <% }) %>
                   </tbody>
                 </table>
               </div>

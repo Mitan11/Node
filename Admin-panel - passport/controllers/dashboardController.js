@@ -2,6 +2,11 @@ const userModel = require('../models/userModel');
 const fs = require('fs');
 const path = require('path');
 const nodemailer = require('nodemailer');
+const categoryModel = require('../models/categoryModel');
+const productModel = require('../models/productModel');
+const subCategoryModel = require('../models/subCategoryModel');
+const subSubCategoryModel = require('../models/subSubCategoryModel');
+
 
 const dashboardController = async (req, res) => {
     res.render('dashboard')
@@ -113,13 +118,13 @@ const verifyOtpController = (req, res) => {
 }
 
 const resetPasswordController = async (req, res) => {
-    const {password, confirmPassword} = req.body;
+    const { password, confirmPassword } = req.body;
 
-    try{
-        if(password !== confirmPassword){
+    try {
+        if (password !== confirmPassword) {
             return res.redirect("back");
         }
-        await userModel.findOneAndUpdate({email: req.cookies.email}, {password});
+        await userModel.findOneAndUpdate({ email: req.cookies.email }, { password });
         res.redirect("/");
     } catch (error) {
         console.log(error);
@@ -189,7 +194,7 @@ const updateUserPostController = async (req, res) => {
     let userData = await userModel.findById(req.params.id);
     const { userName, email, password } = req.body;
     let updateData = { userName, email, password };
-    try{
+    try {
         if (req.file) {
             fs.unlinkSync(path.join(__dirname, "..", "public", "images", "uploads", userData.image));
             return;
@@ -221,12 +226,138 @@ const deleteUserController = async (req, res) => {
     }
 }
 
-const addProductController = (req, res) => {
-    res.render("addProductForm");
+const addProductController = async (req, res) => {
+    try {
+        const subSubCategories = await subSubCategoryModel.find({});
+        console.log(subSubCategories);
+        res.render("addProductForm", { subSubCategories });
+    } catch (error) {
+        console.log(error);
+    }
 }
 
-const productsTableController = (req, res) => {
-    res.render("productsTable");
+const addCategoryController = (req, res) => {
+    res.render("categoryForm");
 }
 
-module.exports = { loginController, dashboardController, signupController, signupPostController, loginPostController, logoutController, userDataController, editUserController, updateUserPostController, deleteUserController, addProductController, productsTableController, changePasswordController, changePasswordPostController, forgotPasswordController, forgotPasswordPostController, otpPageController, verifyOtpController, passwordResetController, resetPasswordController }
+const addProductPostController = async (req, res) => {
+    try {
+        const { productName, productPrice, productDescription, productSubSubCategory, productContact } = req.body;
+        const productImage = req.file ? req.file.filename : null;
+
+        const newProduct = new productModel({
+            productName,
+            productPrice,
+            productDescription,
+            productSubSubCategory,
+            productContact,
+            productImage
+        });
+
+        await newProduct.save();
+        res.redirect('/products-table');
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+const productsTableController = async (req, res) => {
+    try {
+        const products = await productModel.find({}).populate('productCategory');
+        console.log(products);
+
+        res.render("productsTable", { products });
+    } catch (error) {
+
+    }
+}
+
+const addCategoryPostController = async (req, res) => {
+    try {
+        const { categoryName } = req.body;
+
+        const existingCategory = await categoryModel.findOne({ categoryName });
+
+        if (existingCategory) {
+            return res.json({ message: "Category already exists" });
+        }
+
+        const newCategory = new categoryModel({
+            categoryName,
+        });
+
+        await newCategory.save();
+        res.redirect('back');
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+const addSubCategoryController = async (req, res) => {
+    try {
+        const category = await categoryModel.find({});
+        res.render("addSubCategoryForm", { category });
+    } catch {
+        console.error(error);
+    }
+}
+
+const addSubCategoryPostController = async (req, res) => {
+    try {
+        const { subCategory, category } = req.body;
+
+        const existingSubCategory = await subCategoryModel.findOne({ subCategory, category });
+
+        if (existingSubCategory) {
+            return res.json({ message: "Sub Category already exists" });
+        }
+
+        const newSubCategory = new subCategoryModel({
+            subCategory,
+            category,
+        });
+
+        await newSubCategory.save();
+        res.redirect('back');
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+const addSubSubCategoryController = async (req, res) => {
+    try {
+        const subCategory = await subCategoryModel.find({}).populate('category');
+        res.render("addSubSubCategoryForm", { subCategory });
+    } catch {
+        console.error(error);
+    }
+}
+
+const addSubSubCategoryPostController = async (req, res) => {
+    try {
+        const { subSubCategory, subCategory } = req.body;
+
+        const existingSubSubCategory = await subSubCategoryModel.findOne({
+            subSubCategory: subSubCategory,
+            subCategory: subCategory
+        });
+
+        if (existingSubSubCategory) {
+            return res.json({ message: "Sub-subcategory already exists under this subcategory!" });
+        }
+
+        const newSubSubCategory = new subSubCategoryModel({
+            subSubCategory: subSubCategory,
+            subCategory: subCategory
+        });
+
+        await newSubSubCategory.save();
+        res.redirect('back');
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+module.exports = { addSubSubCategoryPostController, addSubCategoryPostController, addSubSubCategoryController, addSubCategoryController, addProductPostController, loginController, dashboardController, signupController, signupPostController, loginPostController, logoutController, userDataController, editUserController, updateUserPostController, deleteUserController, addProductController, productsTableController, changePasswordController, changePasswordPostController, forgotPasswordController, forgotPasswordPostController, otpPageController, verifyOtpController, passwordResetController, resetPasswordController, addCategoryController, addCategoryPostController }

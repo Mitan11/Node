@@ -1,0 +1,39 @@
+<%- include('header') %>
+
+    <div class="app-wrapper">
+        <%- include('navAndSidebar') %>
+
+            <section class="content m-2">
+                <div class="card card-primary card-outline mb-4">
+                    <div class="card-header">
+                        <div class="card-title">Add Sub Category</div>
+                    </div>
+
+                    <form action="/add-subcategory" method="POST">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="categoryName" class="form-label">Sub Category Name</label>
+                                <input type="text" class="form-control" id="categoryName" name="subCategory"
+                                    placeholder="Enter Sub category name" required />
+                            </div>
+                            <div class="mb-3">
+                                <label for="productCategory" class="form-label">Product Category</label>
+                                <select name="category" class="form-select" required>
+                                    <% category.map((item)=> { %>
+                                        <option value="<%= item._id %>">
+                                            <%= item.categoryName %>
+                                        </option>
+                                        <% }); %>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+    </div>
+
+    <%- include('footer') %>
