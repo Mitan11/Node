@@ -3,9 +3,10 @@ const fs = require('fs');
 const path = require('path');
 const nodemailer = require('nodemailer');
 const categoryModel = require('../models/categoryModel');
-const productModel = require('../models/productModel');
 const subCategoryModel = require('../models/subCategoryModel');
 const subSubCategoryModel = require('../models/subSubCategoryModel');
+const productModel = require('../models/productModel');
+
 
 
 const dashboardController = async (req, res) => {
@@ -226,9 +227,17 @@ const deleteUserController = async (req, res) => {
     }
 }
 
+const productsTableController = async (req, res) => {
+    try {
+        res.render("productsTable");
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const addProductController = async (req, res) => {
     try {
-        const subSubCategories = await subSubCategoryModel.find({});
+        const subSubCategories = await subSubCategoryModel.find({}).populate('subCategory').populate('category');
         console.log(subSubCategories);
         res.render("addProductForm", { subSubCategories });
     } catch (error) {
@@ -236,19 +245,19 @@ const addProductController = async (req, res) => {
     }
 }
 
-const addCategoryController = (req, res) => {
-    res.render("categoryForm");
-}
-
 const addProductPostController = async (req, res) => {
     try {
         const { productName, productPrice, productDescription, productSubSubCategory, productContact } = req.body;
         const productImage = req.file ? req.file.filename : null;
 
+        const subSubCategories = await subSubCategoryModel.findOne({_id:productSubSubCategory});
+        
         const newProduct = new productModel({
             productName,
             productPrice,
             productDescription,
+            productCategory : subSubCategories.category.categoryName,
+            productSubCategory : subSubCategories.subCategory.subCategory,
             productSubSubCategory,
             productContact,
             productImage
@@ -261,33 +270,39 @@ const addProductPostController = async (req, res) => {
     }
 };
 
-const productsTableController = async (req, res) => {
-    try {
-        const products = await productModel.find({}).populate('productCategory');
-        console.log(products);
-
-        res.render("productsTable", { products });
-    } catch (error) {
-
-    }
+const addCategoryController = (req, res) => {
+    res.render("categoryForm");
 }
 
 const addCategoryPostController = async (req, res) => {
     try {
         const { categoryName } = req.body;
 
-        const existingCategory = await categoryModel.findOne({ categoryName });
+        if (!categoryName) {
+            return res.json({
+                success: false,
+                message: 'Category name is required and must be a non-empty string.'
+            });
+        }
 
+        const existingCategory = await categoryModel.findOne({ categoryName: categoryName.trim() });
         if (existingCategory) {
-            return res.json({ message: "Category already exists" });
+            return res.status(409).json({
+                success: false,
+                message: 'Category with this name already exists.'
+            });
         }
 
         const newCategory = new categoryModel({
-            categoryName,
+            categoryName: categoryName.trim()
         });
 
         await newCategory.save();
-        res.redirect('back');
+
+        console.log(newCategory)
+
+        return res.redirect('back');
+
     } catch (error) {
         console.error(error);
     }
@@ -295,8 +310,8 @@ const addCategoryPostController = async (req, res) => {
 
 const addSubCategoryController = async (req, res) => {
     try {
-        const category = await categoryModel.find({});
-        res.render("addSubCategoryForm", { category });
+        const categories = await categoryModel.find({});
+        res.render("addSubCategoryForm", { categories });
     } catch {
         console.error(error);
     }
@@ -306,15 +321,28 @@ const addSubCategoryPostController = async (req, res) => {
     try {
         const { subCategory, category } = req.body;
 
-        const existingSubCategory = await subCategoryModel.findOne({ subCategory, category });
+        if (!subCategory) {
+            return res.json({
+                success: false,
+                message: 'SubCategory name is required and must be a non-empty string.'
+            });
+        }
+
+        const existingSubCategory = await subCategoryModel.findOne({
+            subCategory: subCategory.trim(),
+            category: category
+        });
 
         if (existingSubCategory) {
-            return res.json({ message: "Sub Category already exists" });
+            return res.status(409).json({
+                success: false,
+                message: 'A subcategory with this name already exists under the selected category.'
+            });
         }
 
         const newSubCategory = new subCategoryModel({
-            subCategory,
-            category,
+            subCategory: subCategory.trim(),
+            category: category
         });
 
         await newSubCategory.save();
@@ -327,8 +355,9 @@ const addSubCategoryPostController = async (req, res) => {
 
 const addSubSubCategoryController = async (req, res) => {
     try {
-        const subCategory = await subCategoryModel.find({}).populate('category');
-        res.render("addSubSubCategoryForm", { subCategory });
+        const subCategories = await subCategoryModel.find({}).populate('category');
+
+        res.render("addSubSubCategoryForm", { subCategories });
     } catch {
         console.error(error);
     }
@@ -336,7 +365,28 @@ const addSubSubCategoryController = async (req, res) => {
 
 const addSubSubCategoryPostController = async (req, res) => {
     try {
-        const { subSubCategory, subCategory } = req.body;
+        const { subSubCategory, subCategory, category } = req.body;
+
+        if (!subSubCategory) {
+            return res.redirect('back');
+        }
+
+        if (!subCategory) {
+            return res.redirect('back');
+        }
+
+        if (!category) {
+            return res.redirect('back');
+        }
+
+        const parentSubCategory = await subCategoryModel.findOne({
+            _id: subCategory,
+            category: category
+        });
+
+        if (!parentSubCategory) {
+            return res.redirect('back');
+        }
 
         const existingSubSubCategory = await subSubCategoryModel.findOne({
             subSubCategory: subSubCategory,
@@ -344,20 +394,20 @@ const addSubSubCategoryPostController = async (req, res) => {
         });
 
         if (existingSubSubCategory) {
-            return res.json({ message: "Sub-subcategory already exists under this subcategory!" });
+            return res.redirect('back');
         }
 
         const newSubSubCategory = new subSubCategoryModel({
             subSubCategory: subSubCategory,
-            subCategory: subCategory
+            subCategory: subCategory,
+            category: category
         });
 
         await newSubSubCategory.save();
         res.redirect('back');
-
     } catch (error) {
-        console.log(error);
+        console.error(error);
+        res.redirect('back');
     }
-}
-
+};
 module.exports = { addSubSubCategoryPostController, addSubCategoryPostController, addSubSubCategoryController, addSubCategoryController, addProductPostController, loginController, dashboardController, signupController, signupPostController, loginPostController, logoutController, userDataController, editUserController, updateUserPostController, deleteUserController, addProductController, productsTableController, changePasswordController, changePasswordPostController, forgotPasswordController, forgotPasswordPostController, otpPageController, verifyOtpController, passwordResetController, resetPasswordController, addCategoryController, addCategoryPostController }

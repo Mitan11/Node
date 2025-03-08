@@ -19,7 +19,7 @@
                             <div class="mb-3">
                                 <label for="productCategory" class="form-label">Product Category</label>
                                 <select name="category" class="form-select" required>
-                                    <% category.map((item)=> { %>
+                                    <% categories.map((item)=> { %>
                                         <option value="<%= item._id %>">
                                             <%= item.categoryName %>
                                         </option>

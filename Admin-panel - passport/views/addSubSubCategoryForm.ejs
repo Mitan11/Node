@@ -19,15 +19,24 @@
                             <div class="mb-3">
                                 <label for="subProductCategory" class="form-label">Product Category</label>
                                 <select name="subCategory" class="form-select" required>
-                                    <% subCategory.map((item)=> { %>
+                                    <% subCategories.map((item)=> { %>
                                         <option value="<%= item._id %>">
                                             <%= item.subCategory %> (under <%= item.category.categoryName %>)
                                         </option>
                                         <% }); %>
                                 </select>
                             </div>
+                            <div class="mb-3">
+                                <label for="category" class="form-label">Product Category</label>
+                                <select name="category" class="form-select" required>
+                                    <% subCategories.map((item)=> { %>
+                                        <option value="<%= item.category._id %>">
+                                            <%= item.category.categoryName %>
+                                        </option>
+                                        <% }); %>
+                                </select>
+                            </div>
                         </div>
-
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
